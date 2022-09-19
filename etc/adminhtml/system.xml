@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="commercers" translate="label" sortOrder="10">
+            <label>commercers</label>
+        </tab>
+        <section id="checkout_approval" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Checkout Approval</label>
+            <tab>commercers</tab>
+            <resource>Commercers_CheckoutApproval::checkout_approval_setting</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Configuration General</label>
+                <field id="config" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Checkout Approval</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="customer_allow_checkout" translate="label" type="multiselect" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Not Allow checkout for:</label>
+                    <depends><field id="config">1</field></depends>
+                    <source_model>Commercers\CheckoutApproval\Model\Adminhtml\Config\Source\Customer\Group</source_model>
+                    <comment>Select of Customer Group(s)</comment>
+                </field>
+                <field id="message_error" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Error Message</label>
+                    <depends><field id="config">1</field></depends>
+                    <comment>Include the message that the customer, who is not allowed to checkout, will see</comment>
+                </field>
+                <field id="url_redirect" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>URL Redirect</label>
+                    <depends><field id="config">1</field></depends>
+                    <comment>
+                    <![CDATA[
+                    It's path after base url. E.g: enter "/index.php/" -> URL redirect promocell.powered-by-rackspeed.de/index.php/
+
+                    URL will redirect if the groups of customers don't allow to checkout.
+                    ]]>
+                    </comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
